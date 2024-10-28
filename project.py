@@ -5,13 +5,10 @@ def main():
     print("Welcome to the Restaurant Management Metrics Scorecard!")
     print("This tool helps you monitor key performance metrics such as weekly sales, labor costs, food costs, and customer reviews.")
     print("Based on your input, the scorecard will provide feedback and suggestions for improvement.")
-    print("Let's begin by entering your weekly metrics. Please type only whole numbers (leave off $ and commas) when sharing costs.\n")
+    print("Let's begin by entering your weekly metrics.\n")
 
     # Gather input
-    sales = float(input("Enter weekly sales: "))
-    labor_costs = float(input("Enter weekly labor costs: "))
-    food_costs = float(input("Enter weekly food costs: "))
-    avg_reviews = float(input("Enter the average rating on Google, DoorDash, UberEats and Grubhub (in decimal form): "))
+    sales, labor_costs, food_costs, avg_reviews = get_float()
 
     # Functions
     compare_sales_to_target(sales)
@@ -21,6 +18,18 @@ def main():
 
     # Weekly review
     weekly_review(labor_percent, food_percent, avg_reviews)
+
+
+def get_float():
+    while True:
+        try:
+            sales = float(input("Enter weekly sales: "))
+            labor_costs = float(input("Enter weekly labor costs: "))
+            food_costs = float(input("Enter weekly food costs: "))
+            avg_reviews = float(input("Enter the average rating on Google, DoorDash, UberEats and Grubhub (in decimal form): "))
+            return sales, labor_costs, food_costs, avg_reviews
+        except ValueError:
+            print("Invalid input. Please type only whole numbers (leave off $ and commas)")
 
 def compare_sales_to_target(sales, target=5000):
     # Compares sales to a target and gives feedback
