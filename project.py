@@ -1,4 +1,7 @@
+import re
+import csv
 from colorama import Fore, Style
+from datetime import datetime
 
 def main():
     # Introduction to user
@@ -6,6 +9,9 @@ def main():
     print("This tool helps you monitor key performance metrics such as weekly sales, labor costs, food costs, and customer reviews.")
     print("Based on your input, the scorecard will provide feedback and suggestions for improvement.")
     print("Let's begin by entering your weekly metrics.\n")
+
+    # Ask for date
+    date = input("Enter date (YYYY-MM-DD): ")
 
     # Gather input
     sales, labor_costs, food_costs, avg_reviews = get_float()
@@ -19,17 +25,46 @@ def main():
     # Weekly review
     weekly_review(labor_percent, food_percent, avg_reviews)
 
+    # Store data in CSV
+    store_data_in_csv(date, sales, labor_costs, food_costs, avg_reviews)
+
 
 def get_float():
     while True:
         try:
-            sales = float(input("Enter weekly sales: "))
-            labor_costs = float(input("Enter weekly labor costs: "))
-            food_costs = float(input("Enter weekly food costs: "))
-            avg_reviews = float(input("Enter the average rating on Google, DoorDash, UberEats and Grubhub (in decimal form): "))
+            sales = input("Enter weekly sales (e.g., $3,500.50): ")
+            labor_costs = input("Enter weekly labor costs (e.g., $1,250.75): ")
+            food_costs = input("Enter weekly food costs (e.g., $850.00): ")
+            avg_reviews = input("Enter the average rating on Google, DoorDash, UberEats, and Grubhub (in decimal form): ")
+
+            # Remove dollar signs and commas, then convert to float
+            sales = clean_input(sales)
+            labor_costs = clean_input(labor_costs)
+            food_costs = clean_input(food_costs)
+            avg_reviews = clean_input_review(avg_reviews)
+
             return sales, labor_costs, food_costs, avg_reviews
-        except ValueError:
-            print("Invalid input. Please type only whole numbers (leave off $ and commas)")
+        except ValueError as e:
+            print(f"Invalid input. Please ensure all fields are entered correctly: {e}")
+
+def clean_input(value):
+    # Remove dollar sign and commas, then convert to float
+    value = value.replace('$', '').replace(',', '')
+    try:
+        return float(value)
+    except ValueError:
+        raise ValueError(f"Could not convert {value} to a number. Ensure no other characters are included.")
+
+def clean_input_review(value):
+    # Ensure average reviews are between 1 and 5
+    try:
+        value = float(value)
+        if 1 <= value <= 5:
+            return value
+        else:
+            raise ValueError("Review should be between 1 and 5.")
+    except ValueError:
+        raise ValueError("Average rating should be a decimal number between 1 and 5.")
 
 def compare_sales_to_target(sales, target=5000):
     # Compares sales to a target and gives feedback
@@ -89,6 +124,16 @@ def weekly_review(labor_percent, food_percent, avg_reviews):
         print(f"{Fore.YELLOW}\nImprovement Plan for Next Week:\n- Analyze labor shifts and reduce overtime where possible.\n- Focus on reducing food waste and monitoring inventory closely.\n- Gather customer feedback and improve service quality to raise your reviews.{Style.RESET_ALL}")
     else:
         print(f"{Fore.GREEN}\nYou're on track! Keep up the great work next week!{Style.RESET_ALL}")
+
+def store_data_in_csv(date, sales, labor_costs, food_costs, avg_reviews):
+    # Store the data in a CSV file
+    try:
+        with open('restaurant_metrics.csv', mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([date, sales, labor_costs, food_costs, avg_reviews])
+        print(f"Your data for {date} has been saved to the CSV file.")
+    except Exception as e:
+        print(f"Error saving data to CSV: {e}")
 
 if __name__ == "__main__":
     main()
