@@ -1,18 +1,54 @@
-# Restaurant Management Metrics Scorecard
+# Restaurant Management Scorecard
 
-## **Overview**
-The Restaurant Management Metrics Scorecard is a Python-based tool designed to help restaurant managers and owners monitor key performance metrics. The tool evaluates weekly sales, labor costs, food costs, and customer reviews, providing feedback and suggestions for improvement. Additionally, the metrics are saved to a CSV file for future analysis, allowing users to track trends and predict performance.
-
-This project was developed as part of a Harvard Python class (CS50P), demonstrating skills in object-oriented programming (OOP), data validation, error handling, and file operations. The project serves as a practical application of programming concepts learned in the course.
+## **Welcome**
+Welcome to the Restaurant Management Scorecard, a Python-based tool designed as my final project for Harvard's CS50P course. This application helps restaurant managers and owners monitor and manage key performance metrics, make data-driven decisions, and ensure operational success.
 
 ---
 
 ## **Features**
-- **Metrics Evaluation**: Analyze sales, labor costs, food costs, and average reviews with feedback based on industry benchmarks.
-- **Data Validation**: Ensures all inputs are cleaned and validated for accurate calculations.
-- **Error Handling**: Identifies and handles user input errors gracefully using `try/except` blocks and `ValueError`.
-- **File Storage**: Saves metrics to a CSV file, enabling further data analysis and trend tracking.
-- **Object-Oriented Design**: Leverages Python’s OOP principles to encapsulate functionality into reusable and maintainable classes.
+This application enables users to:
+- **Input and Clean Key Weekly Metrics**:
+  - Weekly Sales
+  - Labor Costs
+  - Food Costs
+  - Customer Reviews
+- **Analyze and Compare Metrics**:
+  - Compare inputs against industry standards and receive actionable recommendations for improvement.
+- **Perform Key Calculations**:
+  - Labor Costs as a Percentage of Sales
+  - Food Costs as a Percentage of Sales
+  - Prime Costs (Labor + Food)
+- **Save and Track Data**:
+  - Save weekly metrics to a CSV file for future comparisons and projections.
+- **Receive Feedback and Suggestions**:
+  - Targeted recommendations to improve operational efficiency and customer satisfaction.
+
+---
+
+## **Installation**
+1. Clone or download this repository to your local machine.
+2. Ensure you have Python installed.
+3. Install the required packages:
+   - `colorama`
+
+---
+
+## **Usage**
+1. Run the script `restaurant_scorecard.py`.
+2. Follow the prompts to input:
+   - **Weekly Sales**: Enter your weekly sales in a format like `$3,500.50`.
+   - **Labor Costs**: Enter your weekly labor costs in a format like `$1,250.75`.
+   - **Food Costs**: Enter your weekly food costs in a format like `$850.00`.
+   - **Average Customer Review Rating**: Enter your average rating (on a scale of 1.0 to 5.0).
+
+3. **Receive**:
+   - A detailed analysis of your metrics, including:
+     - Comparisons of your sales to target values.
+     - Labor costs and food costs as percentages of sales.
+     - Feedback on customer reviews.
+   - Recommendations for improving sales, managing costs, and enhancing customer satisfaction.
+
+4. The input data will be automatically saved to `restaurant_metrics.csv` for historical tracking and future projections.
 
 ---
 
@@ -30,7 +66,7 @@ This project went through several iterations as I learned more about programming
    - Understanding the role of `self` and the use of underscores for private attributes was challenging at first. I ended up copying code multiple times, especially for handling sales data. This version worked but was still overly complex and not scalable.
 
 3. **Refined OOP: Multiple Classes with Inheritance**
-   - To address these issues, I refactored the project into a cleaner design with a base class (`Metric`) and a second class (`MetricScorecard`). This allowed me to centralize input validation and calculations in the base class while focusing on higher-level operations, like storing data and generating reports in the other class.
+   - To address these issues, I refactored the project into a cleaner design with a base class (`Metric`) and a derived class (`MetricScorecard`). This allowed me to centralize input validation and calculations in the base class while focusing on higher-level operations, like storing data and generating reports, in the derived class.
    - By applying inheritance, I reduced code duplication and improved the organization of the program. This version marked a breakthrough in understanding OOP concepts and implementing a more maintainable structure.
 
 4. **Final Version: Polished and Simplified**
@@ -99,14 +135,6 @@ Metrics are saved to a CSV file with a timestamp, enabling users to analyze perf
    - Using lessons from the class problem sets helped implement practical solutions for input validation.
 
 ---
-
-## **How to Use the Project**
-1. Run the program:
-   ```bash
-   python project.py
-2. Enter weekly metrics as prompted.
-3. Review the evaluation and feedback.
-4. Check the restaurant_metrics.csv file for stored data.
 
 
 
