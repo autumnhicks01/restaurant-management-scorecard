@@ -1,4 +1,5 @@
 # Restaurant Management Scorecard
+## Video Demo: https://youtu.be/2h2YPhCsBN4
 
 ## **Welcome**
 Welcome to the Restaurant Management Scorecard, a Python-based tool designed as my final project for Harvard's CS50P course. This application helps restaurant managers and owners monitor and manage key performance metrics, make data-driven decisions, and ensure operational success.
